@@ -1,8 +1,7 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const isDevelopment = process.env.NODE_ENV !== 'production'
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-
-const isDevelopment = process.env.NODE_ENV !== 'prodction'
 
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
@@ -13,7 +12,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['.js', '.jsx', 'ts', 'tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   devServer: {
     static: path.resolve(__dirname, 'public'),
@@ -21,9 +20,9 @@ module.exports = {
   },
   plugins: [
     isDevelopment && new ReactRefreshWebpackPlugin(),
-    new HtmlWebpackPlugin({
+    new htmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html')
-    })
+    }),
   ].filter(Boolean),
   module: {
     rules: [
@@ -46,5 +45,4 @@ module.exports = {
       },
     ],
   }
-
-}
+};
